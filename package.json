@@ -1,14 +1,17 @@
 {
-  "name": "raspi-node-bot",
+  "name": "raspi-bot-node",
   "version": "1.0.0",
   "description": "A Raspberry Pi robot, using Nodejs.",
   "main": "index.js",
   "scripts": {
     "test": "test"
   },
+  "engines": {
+    "node": "13.5.x"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CaffeinatedAndroid/raspi-node-bot.git"
+    "url": "git+https://github.com/CaffeinatedAndroid/raspi-bot-node.git"
   },
   "keywords": [
     "Raspberry",
@@ -19,7 +22,7 @@
   "author": "Christopher Bull",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/CaffeinatedAndroid/raspi-node-bot/issues"
+    "url": "https://github.com/CaffeinatedAndroid/raspi-bot-node/issues"
   },
-  "homepage": "https://github.com/CaffeinatedAndroid/raspi-node-bot#readme"
+  "homepage": "https://github.com/CaffeinatedAndroid/raspi-bot-node#readme"
 }
