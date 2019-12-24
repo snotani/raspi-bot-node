@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "pretest": "eslint --ignore-path .gitignore .",
+    "pretest-lint-fix": "eslint --fix --ignore-path .gitignore .",
     "test": "test"
   },
   "engines": {
@@ -28,6 +29,9 @@
   "homepage": "https://github.com/CaffeinatedAndroid/raspi-bot-node#readme",
   "devDependencies": {
     "eslint": "6.8.0",
-    "eslint-config-strongloop": "2.1.0"
+    "eslint-config-strongloop": "2.1.0",
+    "prettier": "1.19.1",
+    "eslint-config-prettier": "6.7.0",
+    "eslint-plugin-prettier": "3.1.2"
   }
 }
