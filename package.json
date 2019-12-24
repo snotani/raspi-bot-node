@@ -4,6 +4,7 @@
   "description": "A Raspberry Pi robot, using Nodejs.",
   "main": "index.js",
   "scripts": {
+    "pretest": "eslint --ignore-path .gitignore .",
     "test": "test"
   },
   "engines": {
@@ -24,5 +25,9 @@
   "bugs": {
     "url": "https://github.com/CaffeinatedAndroid/raspi-bot-node/issues"
   },
-  "homepage": "https://github.com/CaffeinatedAndroid/raspi-bot-node#readme"
+  "homepage": "https://github.com/CaffeinatedAndroid/raspi-bot-node#readme",
+  "devDependencies": {
+    "eslint": "6.8.0",
+    "eslint-config-strongloop": "2.1.0"
+  }
 }
