@@ -1,5 +1,7 @@
 'use strict';
 
+const { getLocalIPAddress } = require('../util');
+
 const PORT = process.env.RPIBOT_DISCOVERY_PORT || 8089;
 const MSG_DISCOVER_ADDR = 'DISCOVER_PIBOT_ADDR';
 const MSG_DISCOVER_ADDR_RESPONSE = 'PIBOT_ADDR=';
@@ -31,20 +33,6 @@ function allowDiscovery() {
       'UDP Discovery server started - ' + address.address + ':' + address.port,
     );
   });
-}
-
-// Utils
-
-const { lookup } = require('dns').promises;
-const { hostname } = require('os');
-
-/**
- * @param {(number|Object)} [options] Optional options used by NodeJS's
- *  `dns.lookup(hostname[, options])`
- * @see https://stackoverflow.com/a/55887284/508098
- */
-async function getLocalIPAddress(options) {
-  return (await lookup(hostname(), options)).address;
 }
 
 // Exports
