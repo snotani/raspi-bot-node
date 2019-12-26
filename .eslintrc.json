@@ -9,5 +9,9 @@
     ],
     "plugins": [
       "prettier"
-    ]
+    ],
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "comma-dangle": ["error", "only-multiline"]
+      }
 }
