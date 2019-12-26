@@ -8,8 +8,8 @@ const MSG_DISCOVER_ADDR_RESPONSE = 'PIBOT_ADDR=';
 
 function allowDiscovery() {
   // Datagram module - UDP
-  const dgram = require('dgram');
-  let server = dgram.createSocket('udp4');
+  const { createSocket } = require('dgram');
+  let server = createSocket('udp4');
   server.bind(PORT);
 
   // On udp message received
