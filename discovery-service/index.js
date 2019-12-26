@@ -2,7 +2,8 @@
 
 const { getLocalIPAddress } = require('../util');
 
-const PORT = process.env.RPIBOT_DISCOVERY_PORT || 8089;
+/** Port number for the UDP Discovery service */
+const PORT_UDP_DISCOVERY = process.env.RPIBOT_DISCOVERY_PORT || 8089;
 const MSG_DISCOVER_ADDR = 'DISCOVER_PIBOT_ADDR';
 const MSG_DISCOVER_ADDR_RESPONSE = 'PIBOT_ADDR=';
 
@@ -10,7 +11,7 @@ function allowDiscovery() {
   // Datagram module - UDP
   const { createSocket } = require('dgram');
   let server = createSocket('udp4');
-  server.bind(PORT);
+  server.bind(PORT_UDP_DISCOVERY);
 
   // On udp message received
   server.on('message', async function(message, rinfo) {
@@ -39,7 +40,7 @@ function allowDiscovery() {
 
 module.exports = {
   // Constants
-  PORT,
+  PORT_UDP_DISCOVERY,
   MSG_DISCOVER_ADDR,
   MSG_DISCOVER_ADDR_RESPONSE,
   // Functions

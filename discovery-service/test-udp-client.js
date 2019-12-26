@@ -1,6 +1,6 @@
 'use strict';
 
-const { MSG_DISCOVER_ADDR, PORT} = require('./index.js');
+const { MSG_DISCOVER_ADDR, PORT_UDP_DISCOVERY: PORT} = require('./index.js');
 
 // Datagram module - UDP
 const { createSocket } = require('dgram');
