@@ -1,1 +1,4 @@
-console.log('hello world');
+'use strict';
+
+const Discovery = require('./discovery-service/index.js');
+Discovery.allowDiscovery();
