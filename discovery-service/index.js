@@ -4,6 +4,8 @@ const { getLocalIPAddress } = require('../util');
 
 /** Port number for the UDP Discovery service */
 const PORT_UDP_DISCOVERY = process.env.RPIBOT_DISCOVERY_PORT || 8089;
+/** Port number for the TCP response to a successful UDP Discovery */
+const PORT_TCP_RESPONSE = process.env.RPIBOT_RESPONSE_PORT || 8090;
 const MSG_DISCOVER_ADDR = 'DISCOVER_PIBOT_ADDR';
 const MSG_DISCOVER_ADDR_RESPONSE = 'PIBOT_ADDR=';
 
@@ -19,10 +21,23 @@ function allowDiscovery() {
     console.debug(output);
 
     if (message.toString() === MSG_DISCOVER_ADDR) {
-      const response =
-        MSG_DISCOVER_ADDR_RESPONSE + await getLocalIPAddress();
-      // TODO - reply with the PiBot's IP address
-      console.debug('TODO - reply with IP: ' + response);
+      const ipAddr = await getLocalIPAddress();
+      console.debug('This devices\' IP Address: ' + ipAddr);
+      const response = MSG_DISCOVER_ADDR_RESPONSE + ipAddr;
+      // Respond to Discovery enquiry through a TCP socket
+      const { Socket } = require('net');
+      let client = new Socket();
+      // TODO migrate to async/await or Promise
+      // TODO handle net connect/write exceptions
+      client.connect(PORT_TCP_RESPONSE, ipAddr, function() {
+        console.log('Connected to discovery enquirer');
+        // Send response
+        client.write(response, () => {
+          console.log('Message sent to discovery enquirer');
+          // Cleanup after response sent
+          client.destroy();
+        });
+      });
     }
   });
 
@@ -41,6 +56,7 @@ function allowDiscovery() {
 module.exports = {
   // Constants
   PORT_UDP_DISCOVERY,
+  PORT_TCP_RESPONSE,
   MSG_DISCOVER_ADDR,
   MSG_DISCOVER_ADDR_RESPONSE,
   // Functions
