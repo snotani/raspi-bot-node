@@ -28,6 +28,7 @@ function allowDiscovery() {
     console.debug(output);
 
     if (message.toString() === MSG_DISCOVER_ADDR) {
+      console.log('UDP Discovery - Discovered');
       const ipAddr = await getLocalIPAddress();
       console.debug("This devices' IP Address: " + ipAddr);
       const response = MSG_DISCOVER_ADDR_RESPONSE + ipAddr;
@@ -37,19 +38,24 @@ function allowDiscovery() {
       let client = new Socket();
       client.on('error', err => {
         console.error(err);
+        console.debug('Cleaning up UDP Discovery Service after error');
+        client.destroy();
+        server.close();
+        console.log('UDP Discovery - Disabled');
       });
       client.connect(PORT_TCP_RESPONSE, rinfo.address, () => {
-        console.debug('Connected to discovery enquirer');
+        console.debug('UDP Discovery - Connected to requester');
         // Send response
         client.write(response, null, err => {
           if (err) {
             console.error(err);
           } else {
-            console.debug('Message sent to discovery enquirer');
+            console.debug('UDP Discovery - Message sent to requester');
           }
           // Cleanup after response sent
           client.destroy();
           server.close();
+          console.log('UDP Discovery - Disabled');
         });
       });
     }
@@ -59,8 +65,8 @@ function allowDiscovery() {
   server.on('listening', () => {
     // Debug output - IP and port
     const address = server.address();
-    console.debug(
-      'UDP Discovery server started - ' + address.address + ':' + address.port,
+    console.log(
+      'UDP Discovery - Enabled - ' + address.address + ':' + address.port,
     );
   });
 }
