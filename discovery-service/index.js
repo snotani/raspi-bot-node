@@ -9,6 +9,13 @@ const PORT_TCP_RESPONSE = process.env.RPIBOT_RESPONSE_PORT || 8090;
 const MSG_DISCOVER_ADDR = 'DISCOVER_PIBOT_ADDR';
 const MSG_DISCOVER_ADDR_RESPONSE = 'PIBOT_ADDR=';
 
+/**
+ * Places the device into Discoverable Mode.
+ *
+ * Waits for a UDP dicovery packet from a potential client, then repsonds with
+ * a short-lived TCP connection to confirm this devices' existence and
+ * willingness to conncect.
+ */
 function allowDiscovery() {
   // Datagram module - UDP
   const { createSocket } = require('dgram');

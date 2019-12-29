@@ -7,7 +7,7 @@ module.exports = {
   /**
    * Lookup the current devices' IP address by its hostname.
    *
-   * @param {(number|Object)} [options] Optional options used by NodeJS's
+   * @param {(number|object)} [options] Optional options used by NodeJS's
    *  `dns.lookup(hostname[, options])`
    */
   getLocalIPAddress: async function getLocalIPAddress(options) {

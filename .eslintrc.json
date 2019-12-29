@@ -9,7 +9,8 @@
     "no-warning-comments": [
       1,
       { "terms": ["todo", "fixme", "xxx"], "location": "start" }
-    ]
+    ],
+    "jsdoc/check-syntax": 1
   },
   "parserOptions": {
     "ecmaVersion": 8,
