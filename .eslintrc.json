@@ -3,8 +3,8 @@
     "es6": true,
     "node": true
   },
-  "extends": ["prettier", "strongloop"],
-  "plugins": ["prettier"],
+  "extends": ["plugin:jsdoc/recommended", "prettier", "strongloop"],
+  "plugins": ["jsdoc", "prettier"],
   "rules": {
     "no-warning-comments": [
       1,
