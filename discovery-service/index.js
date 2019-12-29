@@ -31,16 +31,23 @@ function allowDiscovery() {
       const ipAddr = await getLocalIPAddress();
       console.debug('This devices\' IP Address: ' + ipAddr);
       const response = MSG_DISCOVER_ADDR_RESPONSE + ipAddr;
+      // TODO check if no need to send IP as part of the response body.
       // Respond to Discovery enquiry through a TCP socket
       const { Socket } = require('net');
       let client = new Socket();
       // TODO migrate to async/await or Promise
-      // TODO handle net connect/write exceptions
-      client.connect(PORT_TCP_RESPONSE, ipAddr, function() {
-        console.log('Connected to discovery enquirer');
+      client.on('error', (err) => {
+        console.error(err);
+      });
+      client.connect(PORT_TCP_RESPONSE, ipAddr, () => {
+        console.debug('Connected to discovery enquirer');
         // Send response
-        client.write(response, () => {
-          console.log('Message sent to discovery enquirer');
+        client.write(response, null, (err) => {
+          if (err) {
+            console.error(err);
+          } else {
+            console.debug('Message sent to discovery enquirer');
+          }
           // Cleanup after response sent
           client.destroy();
         });
@@ -49,7 +56,7 @@ function allowDiscovery() {
   });
 
   // On udp server started and listening.
-  server.on('listening', function() {
+  server.on('listening', () => {
     // Debug output - IP and port
     const address = server.address();
     console.debug(
