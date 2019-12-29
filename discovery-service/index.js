@@ -29,20 +29,19 @@ function allowDiscovery() {
 
     if (message.toString() === MSG_DISCOVER_ADDR) {
       const ipAddr = await getLocalIPAddress();
-      console.debug('This devices\' IP Address: ' + ipAddr);
+      console.debug("This devices' IP Address: " + ipAddr);
       const response = MSG_DISCOVER_ADDR_RESPONSE + ipAddr;
       // TODO check if no need to send IP as part of the response body.
       // Respond to Discovery enquiry through a TCP socket
       const { Socket } = require('net');
       let client = new Socket();
-      // TODO migrate to async/await or Promise
-      client.on('error', (err) => {
+      client.on('error', err => {
         console.error(err);
       });
-      client.connect(PORT_TCP_RESPONSE, ipAddr, () => {
+      client.connect(PORT_TCP_RESPONSE, rinfo.address, () => {
         console.debug('Connected to discovery enquirer');
         // Send response
-        client.write(response, null, (err) => {
+        client.write(response, null, err => {
           if (err) {
             console.error(err);
           } else {
@@ -50,6 +49,7 @@ function allowDiscovery() {
           }
           // Cleanup after response sent
           client.destroy();
+          server.close();
         });
       });
     }
