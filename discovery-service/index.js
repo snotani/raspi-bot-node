@@ -1,13 +1,10 @@
 'use strict';
 
-const { getLocalIPAddress } = require('../util');
-
 /** Port number for the UDP Discovery service */
 const PORT_UDP_DISCOVERY = process.env.RPIBOT_DISCOVERY_PORT || 8089;
 /** Port number for the TCP response to a successful UDP Discovery */
 const PORT_TCP_RESPONSE = process.env.RPIBOT_RESPONSE_PORT || 8090;
 const MSG_DISCOVER_ADDR = 'DISCOVER_PIBOT_ADDR';
-const MSG_DISCOVER_ADDR_RESPONSE = 'PIBOT_ADDR=';
 
 /**
  * Places the device into Discoverable Mode.
@@ -23,40 +20,27 @@ function allowDiscovery() {
   server.bind(PORT_UDP_DISCOVERY);
 
   // On udp message received
-  server.on('message', async function(message, rinfo) {
-    const output = 'Message: "' + message + '"; Address: ' + rinfo.address;
-    console.debug(output);
-
+  server.on('message', (message, rinfo) => {
     if (message.toString() === MSG_DISCOVER_ADDR) {
-      console.log('UDP Discovery - Discovered');
-      const ipAddr = await getLocalIPAddress();
-      console.debug("This devices' IP Address: " + ipAddr);
-      const response = MSG_DISCOVER_ADDR_RESPONSE + ipAddr;
-      // TODO check if no need to send IP as part of the response body.
+      console.log('UDP Discovery - Discovered (' + rinfo.address + ')');
       // Respond to Discovery enquiry through a TCP socket
       const { Socket } = require('net');
       let client = new Socket();
       client.on('error', err => {
         console.error(err);
-        console.debug('Cleaning up UDP Discovery Service after error');
+        console.debug('UDP Discovery - Cleaning up after error');
         client.destroy();
         server.close();
         console.log('UDP Discovery - Disabled');
       });
       client.connect(PORT_TCP_RESPONSE, rinfo.address, () => {
-        console.debug('UDP Discovery - Connected to requester');
-        // Send response
-        client.write(response, null, err => {
-          if (err) {
-            console.error(err);
-          } else {
-            console.debug('UDP Discovery - Message sent to requester');
-          }
-          // Cleanup after response sent
-          client.destroy();
-          server.close();
-          console.log('UDP Discovery - Disabled');
-        });
+        // No need to send message, just connect, as the connection meta data
+        // (remote IP address) will be used to setup a new connection
+        console.debug('UDP Discovery - Connected to requester and IP shared');
+        // Cleanup after connection
+        client.destroy();
+        server.close();
+        console.log('UDP Discovery - Disabled');
       });
     }
   });
@@ -78,7 +62,6 @@ module.exports = {
   PORT_UDP_DISCOVERY,
   PORT_TCP_RESPONSE,
   MSG_DISCOVER_ADDR,
-  MSG_DISCOVER_ADDR_RESPONSE,
   // Functions
   allowDiscovery,
 };
