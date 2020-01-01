@@ -11,7 +11,7 @@ import net = require('net');
  * @returns {number} The number representation of `envVar` or the provided
  *  `defaultNum`.
  */
-function getStrAsNumberOrDefault(
+export function getStrAsNumberOrDefault(
   envVar: string | undefined,
   defaultNum = -1,
 ): number {
