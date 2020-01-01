@@ -2,13 +2,14 @@
   "name": "raspi-bot-node",
   "version": "1.0.0",
   "description": "A Raspberry Pi robot, using Nodejs.",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
     "lint": "eslint ./src --ext .ts,.tsx",
     "lint-fix": "eslint ./src --fix --ext .ts,.tsx",
     "transpile": "tsc",
     "build": "npm run lint && npm run transpile",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./dist/index.js"
   },
   "engines": {
     "node": "13.5.x"
