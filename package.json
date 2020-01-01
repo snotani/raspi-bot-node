@@ -4,9 +4,11 @@
   "description": "A Raspberry Pi robot, using Nodejs.",
   "main": "index.js",
   "scripts": {
-    "pretest": "eslint --ignore-path .gitignore .",
-    "pretest-lint-fix": "eslint --fix --ignore-path .gitignore .",
-    "test": "test"
+    "lint": "eslint ./src --ext .ts,.tsx",
+    "lint-fix": "eslint ./src --fix --ext .ts,.tsx",
+    "transpile": "tsc",
+    "build": "npm run lint && npm run transpile",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "engines": {
     "node": "13.5.x"
@@ -28,11 +30,15 @@
   },
   "homepage": "https://github.com/CaffeinatedAndroid/raspi-bot-node#readme",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "2.14.0",
+    "@typescript-eslint/parser": "2.14.0",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.8.0",
     "eslint-config-strongloop": "2.1.0",
     "eslint-plugin-jsdoc": "18.6.2",
     "eslint-plugin-prettier": "3.1.2",
-    "prettier": "1.19.1"
-  }
+    "prettier": "1.19.1",
+    "typescript": "3.7.4"
+  },
+  "dependencies": {}
 }
