@@ -33,10 +33,16 @@ export enum CommunicationType {
 // // and will timeout if not received.
 // function addConnectionLostListener() {}
 
+/**
+ * Starts the TCP server.
+ */
 function startTCPServer(): void {
   return;
 }
 
+/**
+ * Starts the UDP server.
+ */
 function startUDPServer(): void {
   return;
 }
