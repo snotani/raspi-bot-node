@@ -4,8 +4,8 @@
   "description": "A Raspberry Pi robot, using Nodejs.",
   "main": "./dist/index.js",
   "scripts": {
-    "lint": "eslint ./src --ext .ts,.tsx",
-    "lint-fix": "eslint ./src --fix --ext .ts,.tsx",
+    "lint": "eslint ./src ./test --ext .ts,.tsx",
+    "lint-fix": "eslint ./src ./test --fix --ext .ts,.tsx",
     "transpile": "tsc",
     "build": "npm run lint && tsc",
     "test": "mocha",
