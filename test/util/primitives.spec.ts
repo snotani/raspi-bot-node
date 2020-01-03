@@ -1,4 +1,4 @@
-import { getStrAsNumberOrDefault } from '../../src/util/primitves';
+import { getStrAsNumberOrDefault } from '../../src/util/primitives';
 import { expect } from 'chai';
 import 'mocha';
 

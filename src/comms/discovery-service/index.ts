@@ -1,6 +1,6 @@
 import dgram = require('dgram');
 import net = require('net');
-import { getStrAsNumberOrDefault } from '../../util/primitves';
+import { getStrAsNumberOrDefault } from '../../util/primitives';
 
 /** Port number for the UDP Discovery service */
 export const PORT_UDP_DISCOVERY: number = getStrAsNumberOrDefault(
@@ -19,9 +19,9 @@ let server: dgram.Socket | undefined;
 /**
  * Places the device into Discoverable Mode.
  *
- * Waits for a UDP dicovery packet from a potential client, then repsonds with
+ * Waits for a UDP discovery packet from a potential client, then responds with
  * a short-lived TCP connection to confirm this devices' existence and
- * willingness to conncect.
+ * willingness to connect.
  */
 export function enable(): void {
   if (server === undefined) {

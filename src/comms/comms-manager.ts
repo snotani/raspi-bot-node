@@ -30,7 +30,7 @@ export enum CommunicationType {
 // }
 
 // // Note: There will be a potential delay for communication types that do not
-// // have a connection (e.g., UDP); these rely on a periodic keepalive message
+// // have a connection (e.g., UDP); these rely on a periodic keep-alive message
 // // and will timeout if not received.
 // function addConnectionLostListener() {}
 

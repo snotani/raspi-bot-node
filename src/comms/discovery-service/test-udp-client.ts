@@ -2,7 +2,7 @@ import Discovery = require('./index');
 import net = require('net');
 import dgram = require('dgram');
 
-// Create TCP server to receive a reponse from any discovered services
+// Create TCP server to receive a response from any discovered services
 // Created before sending the UDP message to ensure it is ready to receive a
 // response to the UDP broadcast.
 const server = new net.Server();
