@@ -1,13 +1,12 @@
-import { CommunicationManager, CommunicationType } from './comms/comms-manager';
+import Comms = require('./comms/comms-manager');
 
-const comms = new CommunicationManager();
 // Start connection(s)
-comms.startServer(CommunicationType.Any);
+Comms.startServer(Comms.CommunicationType.Any);
 // Enable discoverability service (e.g. be discoverable by UDP broadcast)
-comms.startDiscoveryService();
+Comms.startDiscoveryService();
 
 // // Power save.
 // const TIMEOUT_POWER_SAVE = 60000; // 60 secs
 // setTimeout(() => {
-//   comms.stopDiscoveryService();
+//   Comms.stopDiscoveryService();
 // }, TIMEOUT_POWER_SAVE);

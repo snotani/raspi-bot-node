@@ -1,4 +1,5 @@
 import Discovery = require('./discovery-service');
+import TCP = require('./net/tcp-server');
 
 // enum MessageType {
 //   // System
@@ -37,7 +38,7 @@ export enum CommunicationType {
  * Starts the TCP server.
  */
 function startTCPServer(): void {
-  return;
+  TCP.start();
 }
 
 /**
@@ -47,50 +48,49 @@ function startUDPServer(): void {
   return;
 }
 
-export class CommunicationManager {
-  /**
-   * Enables the Discovery Service.
-   *
-   * Responds to specific UDP broadcasts.
-   *
-   * @see Discovery.enable()
-   */
-  startDiscoveryService(): void {
-    Discovery.enable();
-  }
+/**
+ * Enables the Discovery Service.
+ *
+ * Responds to specific UDP broadcasts.
+ *
+ * @see Discovery.enable()
+ */
+export function startDiscoveryService(): void {
+  Discovery.enable();
+}
 
-  /**
-   * Disables the Discovery Service.
-   *
-   * @see Discovery.disable()
-   */
-  stopDiscoveryService(): void {
-    Discovery.disable();
-  }
+/**
+ * Disables the Discovery Service.
+ *
+ * @see Discovery.disable()
+ */
+export function stopDiscoveryService(): void {
+  Discovery.disable();
+}
 
-  /**
-   * Starts the communication server(s).
-   *
-   * If param `type` is specified as `CommunicationType.Any`, it prepares all
-   * available communication services; once a connection is established on one
-   * of the communication methods, the other communication types are disabled.
-   *
-   * @param {CommunicationType} type The type of communication to set up.
-   */
-  startServer(type: CommunicationType): void {
-    switch (type) {
-      case CommunicationType.Any:
-        startTCPServer();
-        startUDPServer();
-        break;
-      case CommunicationType.TCP:
-        startTCPServer();
-        break;
-      case CommunicationType.UDP:
-        startUDPServer();
-        break;
-      default:
-        throw new Error(`Invalid CommunicationType: ${type}`);
-    }
+/**
+ * Starts the communication server(s).
+ *
+ * If param `type` is specified as `CommunicationType.Any`, it prepares all
+ * available communication services; once a connection is established on one
+ * of the communication methods, the other communication types are disabled.
+ *
+ * @param {CommunicationType} type The type of communication to set up.
+ */
+export function startServer(type: CommunicationType): void {
+  switch (type) {
+    case CommunicationType.Any:
+      console.debug('Comms: Listening for connection on all channels');
+      startTCPServer();
+      startUDPServer();
+      break;
+    case CommunicationType.TCP:
+      startTCPServer();
+      break;
+    case CommunicationType.UDP:
+      startUDPServer();
+      break;
+    default:
+      throw new Error(`Invalid CommunicationType: ${type}`);
   }
 }
