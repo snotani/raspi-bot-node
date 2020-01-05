@@ -18,6 +18,7 @@ export class DifferentialDrive implements Agent {
   }
 
   availableMovementTypes: readonly MovementType[] = [
+    MovementType.Stop,
     MovementType.Forward,
     MovementType.Backward,
     MovementType.YawLeft,
@@ -26,17 +27,29 @@ export class DifferentialDrive implements Agent {
 
   move(type: MovementType, value?: number): void {
     switch (type) {
+      case MovementType.Stop:
+        this.leftMotor.stop();
+        this.rightMotor.stop();
+        break;
       case MovementType.Forward:
         console.debug(`Move forward: ${value}`);
+        this.leftMotor.clockwise();
+        this.rightMotor.clockwise();
         break;
       case MovementType.Backward:
         console.debug(`Move backward: ${value}`);
+        this.leftMotor.counterClockwise();
+        this.rightMotor.counterClockwise();
         break;
       case MovementType.YawLeft:
         console.debug(`Rotate left: ${value}`);
+        this.leftMotor.counterClockwise();
+        this.rightMotor.clockwise();
         break;
       case MovementType.YawRight:
         console.debug(`Rotate right: ${value}`);
+        this.leftMotor.clockwise();
+        this.rightMotor.counterClockwise();
         break;
       default:
         console.warn(`MovementType ${type} not supported on this Agent`);

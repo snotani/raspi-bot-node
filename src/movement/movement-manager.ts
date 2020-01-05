@@ -1,10 +1,12 @@
 import { DifferentialDrive } from './agents/differential-drive';
+import { DCMotor } from './motors/dc';
 
 export enum AgentType {
   DifferentialDrive,
 }
 
 export enum MovementType {
+  Stop = 0,
   // Direction
   Up = 1, // Vertical up
   Down = 2, // Vertical down
@@ -47,7 +49,11 @@ export type Agent = {
 };
 
 export interface Motor {
-  GpioPin: number;
+  stop(): void;
+
+  clockwise(): void;
+
+  counterClockwise(): void;
 }
 
 let agent: Agent;
@@ -61,7 +67,10 @@ let agent: Agent;
 export function setAgent(type: AgentType): Agent {
   switch (type) {
     case AgentType.DifferentialDrive:
-      agent = new DifferentialDrive({ GpioPin: -1 }, { GpioPin: -2 });
+      agent = new DifferentialDrive(
+        new DCMotor(-1, -2, -3),
+        new DCMotor(-4, -5, -6),
+      );
       break;
     default:
       throw new Error(`AgentType not yet supported: ${type}`);
