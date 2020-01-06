@@ -4,6 +4,7 @@
   "description": "A Raspberry Pi robot, using Nodejs.",
   "main": "./dist/index.js",
   "scripts": {
+    "spelling": "cspell src/**/*.ts",
     "lint": "eslint ./src ./test --ext .ts,.tsx",
     "lint-fix": "eslint ./src ./test --fix --ext .ts,.tsx",
     "transpile": "tsc",
@@ -42,6 +43,7 @@
     "@typescript-eslint/eslint-plugin": "2.14.0",
     "@typescript-eslint/parser": "2.14.0",
     "chai": "4.2.0",
+    "cspell": "4.0.44",
     "eslint": "6.8.0",
     "eslint-config-prettier": "6.9.0",
     "eslint-config-strongloop": "2.1.0",
