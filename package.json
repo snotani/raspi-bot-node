@@ -4,7 +4,7 @@
   "description": "A Raspberry Pi robot, using Nodejs.",
   "main": "./dist/index.js",
   "scripts": {
-    "spelling": "cspell src/**/*.ts",
+    "spelling": "cspell src/**/*.ts test/**/*.ts README",
     "lint": "eslint ./src ./test --ext .ts,.tsx",
     "lint-fix": "eslint ./src ./test --fix --ext .ts,.tsx",
     "transpile": "tsc",
