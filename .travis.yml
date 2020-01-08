@@ -5,6 +5,8 @@ before_install:
   # - sudo apt-get update
   # - sudo apt-get -y install pigpio
   # Manually install 'pigpio'
+  - sudo apt update
+  - sudo apt -y install python-setuptools python3-setuptools
   - rm -f master.zip
   - sudo rm -rf pigpio-master
   - wget https://github.com/joan2937/pigpio/archive/master.zip
