@@ -7,8 +7,8 @@
     // words - list of words to be always considered correct
     "words": [
         // Packages, libraries, technologies
-        "pigpio",
         "bluetooth",
+        "unexport", // onoff package
         // Missing correct English words
         "cleanup",
         "discoverability",

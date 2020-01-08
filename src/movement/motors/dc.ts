@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // eslint rule `@typescript-eslint/no-explicit-any`is disabled due to
-// inability to load `pigpio` and `pigpio-mock` modules' types.
+// inability to load types for onoff.
 import { Motor } from '../movement-manager';
-const Gpio = false ? require('pigpio').Gpio : require('pigpio-mock').Gpio;
-// TODO Check `pigpio` dependency: www.npmjs.com/package/pigpio#installation
+const Gpio = require('onoff').Gpio;
 
 export class DCMotor implements Motor {
   gpioPinA: any;
@@ -11,28 +10,34 @@ export class DCMotor implements Motor {
   gpioPinEn: any;
 
   constructor(gpioPinA: number, gpioPinB: number, gpioPinEn: number) {
-    this.gpioPinA = new Gpio(gpioPinA, { mode: Gpio.OUTPUT });
-    this.gpioPinB = new Gpio(gpioPinB, { mode: Gpio.OUTPUT });
-    this.gpioPinEn = new Gpio(gpioPinEn, { mode: Gpio.OUTPUT });
+    this.gpioPinA = new Gpio(gpioPinA, 'out');
+    this.gpioPinB = new Gpio(gpioPinB, 'out');
+    this.gpioPinEn = new Gpio(gpioPinEn, 'out');
+    // Cleanup
+    process.on('SIGINT', _ => {
+      this.gpioPinA.unexport();
+      this.gpioPinB.unexport();
+      this.gpioPinEn.unexport();
+    });
   }
 
   stop(): void {
     // Disable the motor first to maximise conserved power.
-    this.gpioPinEn.digitalWrite(0);
+    this.gpioPinEn.writeSync(0);
     // Stop sending a signal to the remaining pins.
-    this.gpioPinA.digitalWrite(0);
-    this.gpioPinB.digitalWrite(0);
+    this.gpioPinA.writeSync(0);
+    this.gpioPinB.writeSync(0);
   }
 
   clockwise(): void {
-    this.gpioPinA.digitalWrite(1);
-    this.gpioPinB.digitalWrite(0);
-    this.gpioPinEn.digitalWrite(1);
+    this.gpioPinA.writeSync(1);
+    this.gpioPinB.writeSync(0);
+    this.gpioPinEn.writeSync(1);
   }
 
   counterClockwise(): void {
-    this.gpioPinA.digitalWrite(0);
-    this.gpioPinB.digitalWrite(1);
-    this.gpioPinEn.digitalWrite(1);
+    this.gpioPinA.writeSync(0);
+    this.gpioPinB.writeSync(1);
+    this.gpioPinEn.writeSync(1);
   }
 }
