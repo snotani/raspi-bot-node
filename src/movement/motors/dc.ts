@@ -2,7 +2,7 @@
 // eslint rule `@typescript-eslint/no-explicit-any`is disabled due to
 // inability to load types for onoff.
 import { Motor } from '../movement-manager';
-const Gpio = require('onoff').Gpio;
+const Gpio = require('../gpio-factory').create();
 
 export class DCMotor implements Motor {
   gpioPinA: any;
@@ -14,7 +14,7 @@ export class DCMotor implements Motor {
     this.gpioPinB = new Gpio(gpioPinB, 'out');
     this.gpioPinEn = new Gpio(gpioPinEn, 'out');
     // Cleanup
-    process.on('SIGINT', _ => {
+    process.on('SIGINT', () => {
       this.gpioPinA.unexport();
       this.gpioPinB.unexport();
       this.gpioPinEn.unexport();
