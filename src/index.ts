@@ -7,7 +7,8 @@ Comms.startServer(Comms.CommunicationType.Any);
 Comms.startDiscoveryService();
 
 // Initialise Agent
-Movement.setAgent(Movement.AgentType.DifferentialDrive);
+const bot = Movement.setAgent(Movement.AgentType.DifferentialDrive);
+bot.move(Movement.MovementType.Forward);
 
 // // Power save.
 // const TIMEOUT_POWER_SAVE = 60000; // 60 seconds
