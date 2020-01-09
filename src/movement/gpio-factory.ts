@@ -1,10 +1,10 @@
 import {
-  Gpio,
-  ValueCallback,
   BinaryValue,
   Direction,
   Edge,
+  Gpio,
   Options,
+  ValueCallback,
 } from 'onoff';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */

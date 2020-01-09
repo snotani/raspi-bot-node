@@ -1,6 +1,6 @@
-import { getStrAsNumberOrDefault } from '../../src/util/primitives';
-import { expect } from 'chai';
 import 'mocha';
+import { expect } from 'chai';
+import { getStrAsNumberOrDefault } from '../../src/util/primitives';
 
 describe('Util: Str to Number conversion', () => {
   it('should convert "10" to 10', () => {

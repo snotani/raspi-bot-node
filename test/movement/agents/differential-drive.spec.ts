@@ -1,8 +1,8 @@
-import { expect } from 'chai';
 import 'mocha';
-import { DifferentialDrive } from '../../../src/movement/agents/differential-drive';
-import { MovementType } from '../../../src/movement/movement-manager';
 import { DCMotor } from '../../../src/movement/motors/dc';
+import { DifferentialDrive } from '../../../src/movement/agents/differential-drive';
+import { expect } from 'chai';
+import { MovementType } from '../../../src/movement/movement-manager';
 
 describe('Movement Agent: DifferentialDrive', () => {
   let diffDrive: DifferentialDrive;

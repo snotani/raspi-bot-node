@@ -1,5 +1,5 @@
-import { DifferentialDrive } from './agents/differential-drive';
 import { DCMotor } from './motors/dc';
+import { DifferentialDrive } from './agents/differential-drive';
 
 export enum AgentType {
   DifferentialDrive,
