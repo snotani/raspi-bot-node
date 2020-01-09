@@ -74,3 +74,8 @@ export function disable(): void {
     console.debug('UDP Discovery - Disabled');
   });
 }
+
+// Cleanup
+process.on('SIGINT', () => {
+  disable();
+});

@@ -38,3 +38,18 @@ export function start(): void {
     console.debug(`TCP: server listening on ${HOSTNAME}:${PORT_TCP}`);
   });
 }
+
+/**
+ * Close TCP Server
+ */
+export function close(): void {
+  server?.close(() => {
+    server = undefined;
+    console.debug('TCP Server - Closed');
+  });
+}
+
+// Cleanup
+process.on('SIGINT', () => {
+  close();
+});
