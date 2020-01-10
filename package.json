@@ -9,7 +9,7 @@
     "lint-fix": "eslint ./src ./test README.md --fix --ext .ts,.tsx,.md",
     "transpile": "tsc",
     "build": "npm run lint && tsc",
-    "test": "npm run lint && nyc mocha",
+    "test": "npm run lint && nyc --reporter=html --reporter=text mocha",
     "test:ci": "npm run lint && nyc --reporter=lcovonly mocha",
     "test:unit": "mocha",
     "test:coverage": "nyc mocha",

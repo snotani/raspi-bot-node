@@ -75,6 +75,15 @@ export function disable(): void {
   });
 }
 
+/**
+ * Checks if the Discovery Service is enabled.
+ *
+ * @returns {boolean} `true` if enabled, otherwise `false`.
+ */
+export function isEnabled(): boolean {
+  return server !== undefined;
+}
+
 // Cleanup
 process.on('SIGINT', () => {
   disable();
