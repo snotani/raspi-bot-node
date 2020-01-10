@@ -10,7 +10,7 @@
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["@typescript-eslint", "jsdoc", "prettier"],
+  "plugins": ["@typescript-eslint", "jsdoc", "prettier", "markdown"],
   "rules": {
     "sort-imports": [
       1,
