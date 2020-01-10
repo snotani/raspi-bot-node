@@ -4,10 +4,10 @@ import { DifferentialDrive } from '../../../src/movement/agents/differential-dri
 import { expect } from 'chai';
 import { MovementType } from '../../../src/movement/movement-manager';
 
-describe('Movement Agent: DifferentialDrive', () => {
+describe('Movement Agent: DifferentialDrive', function() {
   let diffDrive: DifferentialDrive;
 
-  it('should initialise a DifferentialDrive without error', () => {
+  it('should initialise a DifferentialDrive without error', function() {
     expect(() => {
       diffDrive = new DifferentialDrive(
         new DCMotor(1, 2, 3),
@@ -16,7 +16,7 @@ describe('Movement Agent: DifferentialDrive', () => {
     }).to.not.throw(Error);
   });
 
-  it('should Stop without error', () => {
+  it('should Stop without error', function() {
     expect(() => {
       diffDrive.move(MovementType.Forward);
     }).to.not.throw(Error);

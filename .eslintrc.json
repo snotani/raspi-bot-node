@@ -8,9 +8,11 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:jsdoc/recommended",
     "prettier/@typescript-eslint",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:mocha/recommended",
+    "plugin:chai-expect/recommended"
   ],
-  "plugins": ["@typescript-eslint", "jsdoc", "prettier", "markdown"],
+  "plugins": ["@typescript-eslint", "jsdoc", "prettier", "markdown", "mocha", "chai-expect"],
   "rules": {
     "sort-imports": [
       1,
