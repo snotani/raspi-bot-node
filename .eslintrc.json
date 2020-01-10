@@ -8,8 +8,7 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:jsdoc/recommended",
     "prettier/@typescript-eslint",
-    "plugin:prettier/recommended",
-    "strongloop"
+    "plugin:prettier/recommended"
   ],
   "plugins": ["@typescript-eslint", "jsdoc", "prettier"],
   "rules": {

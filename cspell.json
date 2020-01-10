@@ -9,6 +9,7 @@
         // Packages, libraries, technologies
         "bluetooth",
         "unexport", // onoff package
+        "multiline", // ESLint
         // Missing correct English words
         "cleanup",
         "discoverability",
