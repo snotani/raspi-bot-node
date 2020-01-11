@@ -6,16 +6,16 @@
   "scripts": {
     "spelling": "cspell **/*.ts **/*.md",
     "lint": "eslint ./src ./test README.md --ext .ts,.tsx,.md",
-    "lint-fix": "eslint ./src ./test README.md --fix --ext .ts,.tsx,.md",
+    "lint:fix": "eslint ./src ./test README.md --fix --ext .ts,.tsx,.md",
     "transpile": "tsc",
     "build": "npm run lint && tsc",
     "test": "npm run lint && nyc --reporter=html --reporter=text mocha",
     "test:ci": "npm run lint && nyc --reporter=lcovonly mocha",
     "test:unit": "mocha",
-    "test:coverage": "nyc mocha",
-    "test:all": "npm run lint && nyc mocha && npm run spelling",
+    "test:coverage": "nyc --reporter=html --reporter=text mocha",
+    "test:all": "npm run lint && nyc --reporter=html --reporter=text mocha && npm run spelling",
     "start": "node ./dist/index.js",
-    "start-dev": "ts-node ./src/index.ts"
+    "start:dev": "ts-node ./src/index.ts"
   },
   "engines": {
     "node": "13.6.x"
