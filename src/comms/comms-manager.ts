@@ -17,7 +17,7 @@ import TCP = require('./net/tcp-server');
 // }
 
 export enum CommunicationType {
-  Any = 1,
+  All = 1,
   TCP = 2,
   UDP = 3,
   // Bluetooth = 4,
@@ -38,13 +38,31 @@ export enum CommunicationType {
  * Starts the TCP server.
  */
 function startTCPServer(): void {
+  console.debug('TCP Server - starting');
   TCP.start();
+}
+
+/**
+ * Stops the UDP server.
+ */
+async function stopTCPServer(): Promise<void> {
+  console.debug('TCP Server - stopping');
+  return TCP.close();
 }
 
 /**
  * Starts the UDP server.
  */
 function startUDPServer(): void {
+  console.debug('UDP Server - starting');
+  return;
+}
+
+/**
+ * Stops the UDP server.
+ */
+function stopUDPServer(): void {
+  console.debug('UDP Server - stopping');
   return;
 }
 
@@ -71,7 +89,7 @@ export async function stopDiscoveryService(): Promise<void> {
 /**
  * Starts the communication server(s).
  *
- * If param `type` is specified as `CommunicationType.Any`, it prepares all
+ * If param `type` is specified as `CommunicationType.All`, it prepares all
  * available communication services; once a connection is established on one
  * of the communication methods, the other communication types are disabled.
  *
@@ -79,7 +97,7 @@ export async function stopDiscoveryService(): Promise<void> {
  */
 export function startServer(type: CommunicationType): void {
   switch (type) {
-    case CommunicationType.Any:
+    case CommunicationType.All:
       console.debug('Comms: Listening for connection on all channels');
       startTCPServer();
       startUDPServer();
@@ -89,6 +107,31 @@ export function startServer(type: CommunicationType): void {
       break;
     case CommunicationType.UDP:
       startUDPServer();
+      break;
+    default:
+      throw new Error(`Invalid CommunicationType: ${type}`);
+  }
+}
+
+/**
+ * Stops the communication server(s).
+ *
+ * If param `type` is specified as `CommunicationType.All`, it stops all
+ * currently available communication services.
+ *
+ * @param {CommunicationType} type The type of communication to stop.
+ */
+export async function stopServer(type: CommunicationType): Promise<void> {
+  switch (type) {
+    case CommunicationType.All:
+      stopTCPServer();
+      stopUDPServer();
+      break;
+    case CommunicationType.TCP:
+      await stopTCPServer();
+      break;
+    case CommunicationType.UDP:
+      stopUDPServer();
       break;
     default:
       throw new Error(`Invalid CommunicationType: ${type}`);

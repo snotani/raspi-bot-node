@@ -2,7 +2,7 @@ import Comms = require('./comms/comms-manager');
 import Movement = require('./movement/movement-manager');
 
 // Start connection(s)
-Comms.startServer(Comms.CommunicationType.Any);
+Comms.startServer(Comms.CommunicationType.All);
 // Enable discoverability service (e.g. be discoverable by UDP broadcast)
 Comms.startDiscoveryService();
 
