@@ -23,6 +23,12 @@ export enum MovementType {
   YawRight = 12, // Front rotate right
 }
 
+export enum MotorMotionType {
+  Stop = 0,
+  Clockwise = 1,
+  CounterClockwise = 2,
+}
+
 /**
  * An `Agent` organises and controls the sensors and actuators of a robot.
  *
@@ -49,6 +55,8 @@ export type Agent = {
 };
 
 export interface Motor {
+  getCurrentState(): MotorMotionType;
+
   stop(): void;
 
   clockwise(): void;
