@@ -17,6 +17,24 @@ export const MSG_DISCOVER_ADDR = 'DISCOVER_PIBOT_ADDR';
 let server: dgram.Socket | undefined;
 
 /**
+ * Disables Discoverable Mode on this device.
+ */
+export async function disable(): Promise<void> {
+  return new Promise(resolve => {
+    if (server === undefined) {
+      console.debug('UDP Discovery - Disabled (was not running)');
+      resolve();
+    } else {
+      server.close(() => {
+        server = undefined;
+        console.debug('UDP Discovery - Disabled');
+        resolve();
+      });
+    }
+  });
+}
+
+/**
  * Places the device into Discoverable Mode.
  *
  * Waits for a UDP discovery packet from a potential client, then responds with
@@ -39,8 +57,7 @@ export function enable(): void {
           console.error(err);
           console.debug('UDP Discovery - Cleaning up after error');
           client.destroy();
-          server?.close();
-          console.log('UDP Discovery - Disabled');
+          disable();
         });
         client.connect(PORT_TCP_RESPONSE, rinfo.address, () => {
           // No need to send message, just connect, as the connection meta data
@@ -48,8 +65,7 @@ export function enable(): void {
           console.debug('UDP Discovery - Connected to requester and IP shared');
           // Cleanup after connection
           client.destroy();
-          server?.close();
-          console.log('UDP Discovery - Disabled');
+          disable();
         });
       }
     });
@@ -63,16 +79,6 @@ export function enable(): void {
       );
     });
   }
-}
-
-/**
- * Disables Discoverable Mode on this device.
- */
-export function disable(): void {
-  server?.close(() => {
-    server = undefined;
-    console.debug('UDP Discovery - Disabled');
-  });
 }
 
 /**
