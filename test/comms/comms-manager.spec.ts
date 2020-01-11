@@ -40,23 +40,23 @@ describe('Communication Manager', function() {
   // });
 
   it('should start a TCP server', async function() {
-    CommunicationManager.startServer(
+    await CommunicationManager.startServer(
       CommunicationManager.CommunicationType.TCP,
     );
     const enabled = TCP.isEnabled();
-    expect(enabled).to.equal(true);
     await TCP.close();
+    expect(enabled).to.equal(true);
   });
 
   it('should stop a TCP server', async function() {
-    CommunicationManager.startServer(
+    await CommunicationManager.startServer(
       CommunicationManager.CommunicationType.TCP,
     ); // Will skip if already started
     await CommunicationManager.stopServer(
       CommunicationManager.CommunicationType.TCP,
     );
     const enabled = TCP.isEnabled();
-    expect(enabled).to.equal(false);
     await TCP.close();
+    expect(enabled).to.equal(false);
   });
 });

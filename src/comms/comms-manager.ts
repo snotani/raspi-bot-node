@@ -37,9 +37,9 @@ export enum CommunicationType {
 /**
  * Starts the TCP server.
  */
-function startTCPServer(): void {
+async function startTCPServer(): Promise<void> {
   console.debug('TCP Server - starting');
-  TCP.start();
+  return TCP.start();
 }
 
 /**
@@ -95,15 +95,15 @@ export async function stopDiscoveryService(): Promise<void> {
  *
  * @param {CommunicationType} type The type of communication to set up.
  */
-export function startServer(type: CommunicationType): void {
+export async function startServer(type: CommunicationType): Promise<void> {
   switch (type) {
     case CommunicationType.All:
       console.debug('Comms: Listening for connection on all channels');
-      startTCPServer();
+      await startTCPServer();
       startUDPServer();
       break;
     case CommunicationType.TCP:
-      startTCPServer();
+      await startTCPServer();
       break;
     case CommunicationType.UDP:
       startUDPServer();
@@ -124,7 +124,7 @@ export function startServer(type: CommunicationType): void {
 export async function stopServer(type: CommunicationType): Promise<void> {
   switch (type) {
     case CommunicationType.All:
-      stopTCPServer();
+      await stopTCPServer();
       stopUDPServer();
       break;
     case CommunicationType.TCP:
