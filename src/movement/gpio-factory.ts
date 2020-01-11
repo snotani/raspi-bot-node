@@ -17,7 +17,7 @@ import {
  * const button = new Gpio(4, 'out');
  * ```
  */
-class MockGPIO implements Gpio {
+export class MockGPIO implements Gpio {
   /* eslint-disable no-dupe-class-members */
 
   _gpio: number;
@@ -43,11 +43,12 @@ class MockGPIO implements Gpio {
   read(callback: ValueCallback): void;
   read(): Promise<BinaryValue>;
   read(callback?: ValueCallback): Promise<BinaryValue> | void {
-    if (callback !== undefined) {
-      callback(null, this._value);
-    } else {
-      throw new Error('Method not implemented.');
-    }
+    return new Promise(resolve => {
+      if (callback !== undefined) {
+        callback(null, this._value);
+      }
+      return resolve(this._value);
+    });
   }
 
   readSync(): BinaryValue {
@@ -63,7 +64,13 @@ class MockGPIO implements Gpio {
     value: BinaryValue,
     callback?: (err: Error | null | undefined) => void,
   ): Promise<void> {
-    throw new Error('Method not implemented.');
+    return new Promise(resolve => {
+      this._value = value;
+      if (callback !== undefined) {
+        callback(null);
+      }
+      return resolve();
+    });
   }
 
   writeSync(value: BinaryValue): void {
