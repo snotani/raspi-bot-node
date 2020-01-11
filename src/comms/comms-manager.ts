@@ -64,8 +64,8 @@ export function startDiscoveryService(): void {
  *
  * @see Discovery.disable()
  */
-export function stopDiscoveryService(): void {
-  Discovery.disable();
+export async function stopDiscoveryService(): Promise<void> {
+  return Discovery.disable();
 }
 
 /**
