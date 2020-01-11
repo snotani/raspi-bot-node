@@ -5,6 +5,12 @@ import Discovery = require('../../src/comms/discovery-service');
 import TCP = require('../../src/comms/net/tcp-server');
 
 describe('Communication Manager', function() {
+  after(async function() {
+    await Discovery.disable();
+    await TCP.close();
+    // await UDP.close();
+  });
+
   it('should enable Discovery Service', function() {
     CommunicationManager.startDiscoveryService();
     const enabled = Discovery.isEnabled();
@@ -51,5 +57,6 @@ describe('Communication Manager', function() {
     );
     const enabled = TCP.isEnabled();
     expect(enabled).to.equal(false);
+    await TCP.close();
   });
 });
