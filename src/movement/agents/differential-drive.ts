@@ -32,22 +32,18 @@ export class DifferentialDrive implements Agent {
         this.rightMotor.stop();
         break;
       case MovementType.Forward:
-        console.debug(`Move forward: ${value}`);
         this.leftMotor.clockwise();
         this.rightMotor.clockwise();
         break;
       case MovementType.Backward:
-        console.debug(`Move backward: ${value}`);
         this.leftMotor.counterClockwise();
         this.rightMotor.counterClockwise();
         break;
-      case MovementType.YawLeft:
-        console.debug(`Rotate left: ${value}`);
+      case MovementType.YawLeft: // Rotate left
         this.leftMotor.counterClockwise();
         this.rightMotor.clockwise();
         break;
-      case MovementType.YawRight:
-        console.debug(`Rotate right: ${value}`);
+      case MovementType.YawRight: // Rotate right
         this.leftMotor.clockwise();
         this.rightMotor.counterClockwise();
         break;
