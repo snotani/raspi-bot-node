@@ -3,7 +3,8 @@
 // inability to load types for onoff.
 import { Motor } from '../movement-manager';
 import { MotorMotionType } from '../movement-manager';
-const Gpio = require('../gpio-factory').create();
+import GpioFactory = require('../gpio-factory');
+const Gpio = GpioFactory.create();
 
 export class DCMotor implements Motor {
   gpioPinA: any;
@@ -34,27 +35,24 @@ export class DCMotor implements Motor {
 
   stop(): void {
     // Disable the motor first to maximise conserved power.
-    this.gpioPinEn.writeSync(0);
-    // Stop sending a signal to the remaining pins.
-    this.gpioPinA.writeSync(0);
-    this.gpioPinB.writeSync(0);
-    // Cache the state
+    GpioFactory.writeMultiplePins(
+      0,
+      this.gpioPinEn,
+      this.gpioPinA,
+      this.gpioPinB,
+    );
     this.currentMotionType = MotorMotionType.Stop;
   }
 
   clockwise(): void {
-    this.gpioPinA.writeSync(1);
     this.gpioPinB.writeSync(0);
-    this.gpioPinEn.writeSync(1);
-    // Cache the state
+    GpioFactory.writeMultiplePins(1, this.gpioPinA, this.gpioPinEn);
     this.currentMotionType = MotorMotionType.Clockwise;
   }
 
   counterClockwise(): void {
     this.gpioPinA.writeSync(0);
-    this.gpioPinB.writeSync(1);
-    this.gpioPinEn.writeSync(1);
-    // Cache the state
+    GpioFactory.writeMultiplePins(1, this.gpioPinB, this.gpioPinEn);
     this.currentMotionType = MotorMotionType.CounterClockwise;
   }
 }

@@ -127,3 +127,9 @@ export function create(): Gpio | any {
     return MockGPIO;
   }
 }
+
+export function writeMultiplePins(value: BinaryValue, ...pins: Gpio[]): void {
+  for (const pin of pins) {
+    pin.writeSync(value);
+  }
+}
